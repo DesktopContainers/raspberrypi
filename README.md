@@ -1,7 +1,7 @@
 # Raspberry Pi
 _Raspberry Pi virtual machine in Qemu_
 
-This is a container for emulating the rasbian lite distribution inside a qemu emulated raspberry pi.
+This is a container for emulating the raspbian lite distribution inside a qemu emulated raspberry pi.
 
 It's based on __DesktopContainers/base-mate__
 
