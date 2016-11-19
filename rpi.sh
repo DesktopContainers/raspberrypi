@@ -1,11 +1,11 @@
 #!/bin/bash
 KERNEL="/kernel"
-IMAGE="/raspberry.img.patched"
+IMAGE="/images/raspberry.img"
 
 echo "killing all old emulators..."
 ps aux | grep [q]emu | awk '{print $2}' | tr '\n' ' ' | sed 's/^/kill /g' | bash
 
-while [ ! -e "$IMAGE" ]; do echo "waiting..."; sleep 3; done
+while [ ! -e "$IMAGE" ]; do echo "waiting for image to appear..."; sleep 3; done
 
 echo "starting new emulator..."
 qemu-system-arm -kernel "$KERNEL" \

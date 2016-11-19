@@ -1,6 +1,12 @@
 #!/bin/bash
 
 IMAGE=$1
+IMAGE_PATCHED="/images/raspberry.img"
+
+if [ -e "$IMAGE_PATCHED" ]; then
+  echo "patched image already found... (skipping patching - just start the image)"
+  exit 0
+fi
 
 if [ -z ${FS_EXTEND_GB+x} ]; then
   FS_EXTEND_GB=8
@@ -61,7 +67,7 @@ EOF
 
   umount /mnt || exit 3
   
-  mv "$IMAGE" "$IMAGE.patched"
+  mv "$IMAGE" "$IMAGE_PATCHED"
   
   exit 0
 fi

@@ -7,6 +7,9 @@ You can get the QEMU Window via _ssh -X/VNC/noVNC (http)_. You can also directly
 
 You can only connect once to one container. if you want multiple raspberrys, run the docker container multiple times.
 
+You can preserve the image by mounting the volume /images to an persistent volume.
+Also if you supply it with a qemu patched raspberry pi image with the name __raspberry.img__ qemu will start this image right away.
+
 _Attention: If you use ssh -X to get the qemu window - running instances of the qemu raspberry will be killed and boot again (which takes some time), better use novnc or vnc if you want raspberry with gui_
 
 _The Docker Healthcheck checks if ssh of raspberry is reachable_
@@ -14,6 +17,11 @@ _The Docker Healthcheck checks if ssh of raspberry is reachable_
 It's based on __DesktopContainers/base-mate__
 
 ## Usage: Run the Client
+
+### Volumes
+
+* __/images__ _place where the raspberry pi image will be stored as_ __raspberry.img__
+
 
 ### Exposed Ports
 
