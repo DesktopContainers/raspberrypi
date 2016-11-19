@@ -17,12 +17,12 @@ It's based on __DesktopContainers/base-mate__
 
 ### Exposed Ports
 
-*__2222__ _for ssh connection to the qemu raspberry pi (raspbian lite)_
+* __2222__ _for ssh connection to the qemu raspberry pi (raspbian lite)_
 
 ### Passwords
 
-*__User:__ pi
-*__Password:__ raspberry
+* __User:__ pi
+* __Password:__ raspberry
 
 ### Environment variables and defaults
 
