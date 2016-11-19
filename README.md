@@ -18,6 +18,27 @@ It's based on __DesktopContainers/base-mate__
 
 ## Usage: Run the Client
 
+
+### Simple SSH X11 Forwarding
+
+You can either connect via ssh to the qemu raspberry rasbian system or get the qemu X11 GUI, here is how you use it:
+
+  1. Run a background container as server or start existing one.
+
+        docker start raspberrypi || docker run -d --name raspberrypi -p 2222:2222 --privileged desktopcontainers/raspberrypi
+     
+  2.1 Connect directly to the qemu raspberry via ssh. (Keep an eye on docker healthcheck status - ssh is available when it's healthy)
+  
+        ssh -p 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no pi@localhost
+        
+  2.2 Connect to the server using `ssh -X` (every time the old raspberry gets killed). 
+     _Logging in with `ssh` automatically opens qemu raspberry window_
+
+        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+        -X app@$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' raspberrypi)
+
+## Options and Configuration
+
 ### Volumes
 
 * __/images__ _place where the raspberry pi image will be stored as_ __raspberry.img__
@@ -39,20 +60,3 @@ It's based on __DesktopContainers/base-mate__
 * __RC\_LOCAL\_COMAND__
  * no default - bash comands to include in rc.local
 
-### Simple SSH X11 Forwarding
-
-You can either connect via ssh to the qemu raspberry rasbian system or get the qemu X11 GUI, here is how you use it:
-
-  1. Run a background container as server or start existing one.
-
-        docker start raspberrypi || docker run -d --name raspberrypi -p 2222:2222 --privileged desktopcontainers/raspberrypi
-     
-  2.1 Connect directly to the qemu raspberry via ssh. (Keep an eye on docker healthcheck status - ssh is available when it's healthy)
-  
-        ssh -p 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no pi@localhost
-        
-  2.2 Connect to the server using `ssh -X` (every time the old raspberry gets killed). 
-     _Logging in with `ssh` automatically opens qemu raspberry window_
-
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-        -X app@$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' raspberrypi)
