@@ -4,6 +4,7 @@ MAINTAINER MarvAmBass (https://github.com/DesktopContainers)
 
 RUN apt-get -q -y update && \
     apt-get -q -y install wget \
+                          telnet \
                           qemu-system-arm \
                           util-linux && \
     apt-get -q -y clean && \
@@ -21,6 +22,8 @@ COPY patch-image.sh /usr/local/sbin/
 COPY rpi.sh /usr/local/bin/
 
 RUN echo "#!/bin/bash\nrpi.sh \$*\n" > /bin/ssh-app.sh;
+
+EXPOSE 2222
 
 COPY docker-healthcheck /usr/local/bin/
 HEALTHCHECK CMD ["docker-healthcheck"]

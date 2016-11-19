@@ -15,4 +15,4 @@ qemu-system-arm -kernel "$KERNEL" \
                 -serial stdio \
                 -append "root=/dev/sda2 rootfstype=ext4 rw" \
                 -hda "$IMAGE" \
-                -redir tcp:22::22
+                -redir tcp:2222::22
