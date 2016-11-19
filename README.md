@@ -33,7 +33,8 @@ It's based on __DesktopContainers/base-mate__
 
 ### Simple SSH X11 Forwarding
 
-Since it is an X11 GUI software, usage is in two steps:
+You can either connect via ssh to the qemu raspberry rasbian system or get the qemu X11 GUI, here is how you use it:
+
   1. Run a background container as server or start existing one.
 
         docker start raspberrypi || docker run -d --name raspberrypi -p 2222:2222 --privileged desktopcontainers/raspberrypi
