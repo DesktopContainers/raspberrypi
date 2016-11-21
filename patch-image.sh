@@ -4,6 +4,7 @@ IMAGE=$1
 IMAGE_PATCHED="/images/raspberry.img"
 
 if [ -e "$IMAGE_PATCHED" ]; then
+  chmod a+rw "$IMAGE_PATCHED"
   echo "patched image already found... (skipping patching - just start the image)"
   exit 0
 fi
@@ -68,7 +69,8 @@ EOF
   umount /mnt || exit 3
   
   mv "$IMAGE" "$IMAGE_PATCHED"
-  
+  chmod a+rw "$IMAGE_PATCHED"
+
   exit 0
 fi
 
