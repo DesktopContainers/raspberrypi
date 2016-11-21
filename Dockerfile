@@ -18,8 +18,9 @@ RUN wget -O raspbian-lite.zip https://downloads.raspberrypi.org/raspbian_lite_la
     wget -O /kernel https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.4.13-jessie && \
     sed -i 's/^# exec CMD/patch-image.sh \/raspberry.img || exit 1\n\n#exec CMD/g' /opt/entrypoint.sh && \
     chmod a+rw /raspberry.img /kernel && \
-    echo "#!/bin/bash\nrpi.sh \$*\n" > /bin/ssh-app.sh && \
-    sed -i -e "s/Exec=.*/&'/g" -e "s/Exec=/Exec=\/bin\/bash -c 'while [ ! -e \/images\/raspberry.img ]; do sleep 2; done;/g" \
+    echo "#!/bin/bash\nrpi.sh \$*\n" > /bin/ssh-app.sh
+
+RUN sed -i -e "s/Exec=.*/&'/g" -e "s/Exec=/Exec=\/bin\/bash -c 'while [ \$(pstree | grep [s]u | grep sh | grep tail ; echo \$?) -ne 0 ]; do sleep 10; done;/g" \
     /home/app/.config/autostart/autostart_ssh-app.desktop
 
 COPY patch-image.sh /usr/local/sbin/
