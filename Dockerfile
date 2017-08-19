@@ -23,11 +23,9 @@ RUN wget -O raspbian-lite.zip https://downloads.raspberrypi.org/raspbian_lite_la
 RUN sed -i -e "s/Exec=ssh.*/&'/g" -e "s/Exec=ssh/Exec=\/bin\/bash -c 'while [ \$(pstree | grep [s]u | grep sh | grep tail ; echo \$?) -ne 0 ]; do sleep 10; done;/g" \
     /usr/local/bin/entrypoint.sh
 
-COPY patch-image.sh /usr/local/sbin/
-COPY rpi.sh /usr/local/bin/
+COPY scripts /usr/local/bin/
 
 EXPOSE 2222
 VOLUME ["/images"]
 
-COPY docker-healthcheck /usr/local/bin/
-HEALTHCHECK CMD ["docker-healthcheck"]
+HEALTHCHECK CMD ["/usr/local/bin/docker-healthcheck"]
