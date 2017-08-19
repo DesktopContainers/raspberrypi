@@ -1,4 +1,4 @@
-FROM desktopcontainers/base-mate
+FROM desktopcontainers/base-debian
 
 MAINTAINER MarvAmBass (https://github.com/DesktopContainers)
 
@@ -15,10 +15,10 @@ RUN wget -O raspbian-lite.zip https://downloads.raspberrypi.org/raspbian_lite_la
     rm raspbian-lite.zip && \
     mv *.img /raspberry.img && \
     mkdir /images && \
-    wget -O /kernel https://github.com/dhruvvyas90/qemu-rpi-kernel/raw/master/kernel-qemu-4.4.13-jessie && \
-    sed -i 's/^# exec CMD/patch-image.sh \/raspberry.img || exit 1\n\n#exec CMD/g' /opt/entrypoint.sh && \
+    wget -O /kernel "https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie?raw=true" && \
+    sed -i 's/starting services"/starting services"\n\npatch-image.sh \/raspberry.img || exit 1\n\n/g' /usr/local/bin/entrypoint.sh && \
     chmod a+rw /raspberry.img /kernel && \
-    echo "#!/bin/bash\nrpi.sh \$*\n" > /bin/ssh-app.sh
+    echo "rpi.sh \$*" >> /bin/ssh-app.sh
 
 RUN sed -i -e "s/Exec=.*/&'/g" -e "s/Exec=/Exec=\/bin\/bash -c 'while [ \$(pstree | grep [s]u | grep sh | grep tail ; echo \$?) -ne 0 ]; do sleep 10; done;/g" \
     /home/app/.config/autostart/autostart_ssh-app.desktop
