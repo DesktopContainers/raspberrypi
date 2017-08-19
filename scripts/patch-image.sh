@@ -59,7 +59,8 @@ EOF
   echo " - /etc/rc.local"
   sed -i 's/^exit.*//g' /mnt/etc/rc.local
   echo "resize2fs /dev/sda2 || exit 1" >> /mnt/etc/rc.local
-  
+  echo "service ssh start" >> /mnt/etc/rc.local
+
   if [ -z ${RC_LOCAL_COMAND+x} ]; then
     echo "$RC_LOCAL_COMAND" >> /mnt/etc/rc.local
   fi
