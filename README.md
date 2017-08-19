@@ -25,17 +25,13 @@ You can either connect via ssh to the qemu raspberry rasbian system or get the q
 
   1. Run a background container as server or start existing one.
 
-        docker start raspberrypi || docker run -d --name raspberrypi -p 2222:2222 --privileged desktopcontainers/raspberrypi
+        docker start raspberrypi || docker run -d --name raspberrypi -p 2222:2222 -p 80:80 -p 443:443 --privileged desktopcontainers/raspberrypi
      
   2.1 Connect directly to the qemu raspberry via ssh. (Keep an eye on docker healthcheck status - ssh is available when it's healthy)
   
         ssh -p 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no pi@localhost
         
-  2.2 Connect to the server using `ssh -X` (every time the old raspberry gets killed). 
-     _Logging in with `ssh` automatically opens qemu raspberry window_
-
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
-        -X app@$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' raspberrypi)
+  2.2 See the qemu environment (window) on http://localhost
 
 ## Options and Configuration
 
