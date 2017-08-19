@@ -20,8 +20,8 @@ RUN wget -O raspbian-lite.zip https://downloads.raspberrypi.org/raspbian_lite_la
     chmod a+rw /raspberry.img /kernel && \
     echo "rpi.sh \$*" >> /bin/ssh-app.sh
 
-RUN sed -i -e "s/Exec=.*/&'/g" -e "s/Exec=/Exec=\/bin\/bash -c 'while [ \$(pstree | grep [s]u | grep sh | grep tail ; echo \$?) -ne 0 ]; do sleep 10; done;/g" \
-    /home/app/.config/autostart/autostart_ssh-app.desktop
+RUN sed -i -e "s/Exec=ssh.*/&'/g" -e "s/Exec=ssh/Exec=\/bin\/bash -c 'while [ \$(pstree | grep [s]u | grep sh | grep tail ; echo \$?) -ne 0 ]; do sleep 10; done;/g" \
+    /usr/local/bin/entrypoint.sh
 
 COPY patch-image.sh /usr/local/sbin/
 COPY rpi.sh /usr/local/bin/
